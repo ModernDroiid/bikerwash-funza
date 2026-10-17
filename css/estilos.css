@@ -1,0 +1,1090 @@
+/* =========================================================
+   BikerWash Funza — estilos
+   Índice:
+   1. Colores y medidas (cámbialos aquí y se aplican a todo)
+   2. Base
+   3. Utilidades compartidas
+   4. Botones
+   5. Fotos
+   6. Barra superior
+   7. Menú
+   8. Portada
+   9. Cinta animada
+   10. La carta
+   11. Pase del mes
+   12. Proceso
+   13. Antes / después
+   14. Lava tu propia moto
+   15. Reserva
+   16. Pie de página
+   ========================================================= */
+
+/* ---------- 1. Colores y medidas ---------- */
+:root {
+  --c-bg: #050608;
+  --c-bg-raised: #0b0d10;
+  --c-surface: #0f1317;
+  --c-line: #1d2329;
+  --c-text: #f1f4f7;
+  --c-text-soft: #c4cbd3;
+  --c-muted: #8a949f;
+  --c-accent: #1fa8ff;
+  --c-accent-deep: #0e3550;
+  --c-ink: #050608;
+  --c-paper: #f1f4f7;
+
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --fs-hero: clamp(3.5rem, 11vw, 8.75rem);
+  --fs-h2: clamp(3rem, 8vw, 6.5rem);
+  --fs-h3: clamp(1.75rem, 3.6vw, 3rem);
+  --fs-lead: clamp(1.05rem, 1.4vw, 1.2rem);
+  --fs-mono: 0.75rem;
+
+  --container: 1280px;
+  --gutter: clamp(1rem, 4vw, 3.25rem);
+  --section-y: clamp(5rem, 10vw, 9rem);
+
+  --slant: 0.9rem;
+  --corner: clamp(3rem, 8vw, 6rem);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Cuando Lenis está activo, él se encarga del scroll suave */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--c-accent);
+  color: var(--c-ink);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- 3. Utilidades compartidas ---------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-stretch: 72%;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--c-muted);
+}
+
+.accent {
+  color: var(--c-accent);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  color: var(--c-text-soft);
+  max-width: 34rem;
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-head > :first-child {
+  font-size: var(--fs-h2);
+}
+
+/* ---------- 4. Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.btn--solid {
+  padding: 1.1rem 2.75rem;
+  background: var(--c-accent);
+  color: var(--c-ink);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-stretch: 75%;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+  clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+}
+
+.btn--solid.btn--sm {
+  padding: 0.8rem 1.75rem;
+  font-size: 1rem;
+}
+
+.btn--solid:hover {
+  background: var(--c-text);
+}
+
+.btn--solid:active {
+  transform: translateY(1px);
+}
+
+.btn--link {
+  padding-block: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+}
+
+.btn--link:hover {
+  color: var(--c-accent);
+}
+
+/* ---------- 5. Fotos (con esquina cortada) ---------- */
+.photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 20rem;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 22px, rgb(255 255 255 / 0.035) 22px 23px),
+    var(--c-surface);
+  border: 1px solid var(--c-line);
+}
+
+.photo--bottom-right {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, 0 100%);
+}
+
+.photo--top-right {
+  clip-path: polygon(0 0, calc(100% - var(--corner)) 0, 100% var(--corner), 100% 100%, 0 100%);
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Etiqueta que aclara que una foto es de muestra y no del negocio */
+.ref-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+  padding: 0.4rem 0.7rem;
+  background: rgb(5 6 8 / 0.8);
+  color: var(--c-text);
+  font-size: 0.65rem;
+  pointer-events: none;
+}
+
+.photo__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 22rem;
+  padding: 1rem;
+  text-align: center;
+  color: var(--c-muted);
+  line-height: 1.6;
+}
+
+/* ---------- 6. Barra superior ---------- */
+.topbar {
+  background: var(--c-accent);
+  color: var(--c-ink);
+  font-size: 0.7rem;
+}
+
+.topbar__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.55rem;
+}
+
+.topbar a {
+  text-decoration: none;
+}
+
+.topbar a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .topbar__promo {
+    display: none;
+  }
+}
+
+/* ---------- 7. Menú ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgb(5 6 8 / 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-block: 0.85rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-right: auto;
+  text-decoration: none;
+}
+
+.brand__logo {
+  border-radius: 50%;
+}
+
+.brand__word {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-stretch: 72%;
+  font-size: 1.6rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.nav__list {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+}
+
+.nav__list a {
+  text-decoration: none;
+  color: var(--c-text-soft);
+  transition: color 0.2s var(--ease);
+}
+
+.nav__list a:hover {
+  color: var(--c-accent);
+}
+
+/* En celular se ocultan los enlaces y queda solo el botón "Agendar cita" */
+@media (max-width: 900px) {
+  .nav {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand__word {
+    display: none;
+  }
+}
+
+/* ---------- 8. Portada ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding-block: clamp(3rem, 7vw, 5.5rem) clamp(4rem, 8vw, 7rem);
+}
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+}
+
+.hero__price {
+  display: block;
+  margin-top: 0.06em;
+}
+
+.hero__unit {
+  margin-left: 0.1em;
+  font-size: 0.42em;
+  color: var(--c-muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 2.5rem;
+}
+
+.hero__highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1rem;
+  border-block: 1px solid var(--c-line);
+}
+
+.hero__highlights > div {
+  padding: 1.25rem 1.25rem 1.25rem 0;
+}
+
+.hero__highlights > div + div {
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--c-line);
+}
+
+.hero__highlights dd {
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+.hero__visual {
+  position: relative;
+  align-self: stretch;
+}
+
+.hero__photo {
+  height: 100%;
+  min-height: 32rem;
+}
+
+.hero__seats {
+  position: absolute;
+  top: 2.25rem;
+  right: -0.75rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  font-weight: 700;
+  rotate: 2deg;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.4);
+}
+
+.hero__badge {
+  position: absolute;
+  bottom: -3.5rem;
+  left: -2.5rem;
+  width: clamp(8rem, 13vw, 11rem);
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid var(--c-accent);
+  background: var(--c-bg);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__photo {
+    min-height: 22rem;
+  }
+
+  .hero__seats {
+    right: 0.5rem;
+  }
+
+  .hero__badge {
+    left: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero__highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__highlights > div + div {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--c-line);
+  }
+}
+
+/* ---------- 9. Cinta animada ---------- */
+.marquee-wrap {
+  overflow: hidden;
+  padding-block: 1rem;
+}
+
+.marquee {
+  margin-block: clamp(2rem, 4vw, 4rem);
+  padding-block: 0.9rem;
+  background: var(--c-accent);
+  color: var(--c-ink);
+  rotate: -2deg;
+  width: 104%;
+  margin-left: -2%;
+  overflow: hidden;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  white-space: nowrap;
+  animation: marquee 32s linear infinite;
+}
+
+.marquee__track span {
+  padding-right: 0.3em;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- 10. La carta ---------- */
+.menu {
+  border-top: 1px solid var(--c-line);
+}
+
+.menu__item {
+  display: grid;
+  grid-template-columns: 4rem 1fr auto;
+  align-items: center;
+  gap: 0.5rem 2rem;
+  padding-block: clamp(1.75rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.menu__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+  font-size: var(--fs-h3);
+}
+
+.menu__badge {
+  padding: 0.3rem 0.6rem;
+  background: var(--c-accent);
+  color: var(--c-ink);
+  font-style: normal;
+  font-size: 0.65rem;
+  line-height: 1.2;
+}
+
+.menu__price {
+  font-size: clamp(1.75rem, 3.2vw, 2.6rem);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.menu__unit {
+  font-size: 0.45em;
+}
+
+@media (max-width: 720px) {
+  .menu__item {
+    grid-template-columns: 2.5rem 1fr;
+  }
+
+  .menu__price {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+
+/* ---------- 11. Pase del mes ---------- */
+.pass {
+  background: radial-gradient(60% 45% at 50% 60%, rgb(31 168 255 / 0.12), transparent 70%);
+}
+
+.ticket {
+  --notch: 1.75rem;
+
+  display: grid;
+  grid-template-columns: 1fr minmax(15rem, 22%);
+  color: var(--c-ink);
+  filter: drop-shadow(0 30px 60px rgb(31 168 255 / 0.15));
+}
+
+.ticket__main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: var(--c-accent);
+}
+
+.ticket__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+}
+
+.ticket__title {
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+}
+
+.ticket__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.75rem;
+  border-top: 2px solid var(--c-ink);
+}
+
+.ticket__perks {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ticket__price {
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: 900;
+}
+
+.ticket__unit {
+  margin-left: 0.3rem;
+  font-size: 0.35em;
+}
+
+/* Talón del ticket: línea punteada con dos círculos (muescas) */
+.ticket__stub {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--c-paper);
+  border-left: 3px dotted var(--c-ink);
+}
+
+.ticket__stub::before,
+.ticket__stub::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: var(--notch);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--c-bg);
+}
+
+.ticket__stub::before {
+  top: 0;
+}
+
+.ticket__stub::after {
+  top: 100%;
+}
+
+.ticket__seat {
+  margin-top: 0.5rem;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+}
+
+.ticket__seat span {
+  font-size: 0.45em;
+}
+
+.ticket__season {
+  margin-top: 0.4rem;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.ticket__barcode {
+  height: 4.5rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--c-ink) 0 2px,
+    transparent 2px 5px,
+    var(--c-ink) 5px 6px,
+    transparent 6px 9px,
+    var(--c-ink) 9px 12px,
+    transparent 12px 14px
+  );
+}
+
+.pass__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 760px) {
+  .ticket {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket__stub {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-left: 0;
+    border-top: 3px dotted var(--c-ink);
+  }
+
+  .ticket__stub::before,
+  .ticket__stub::after {
+    display: none;
+  }
+
+  .ticket__barcode {
+    flex-basis: 100%;
+  }
+}
+
+/* ---------- 12. Proceso ---------- */
+.process {
+  background: var(--c-bg-raised);
+  border-top: 1px solid var(--c-line);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.step {
+  padding-top: 1.75rem;
+  border-top: 3px solid var(--c-line);
+}
+
+.step:first-child {
+  border-top-color: var(--c-accent);
+}
+
+.step__label {
+  margin-bottom: 1rem;
+  color: var(--c-muted);
+}
+
+.step:first-child .step__label {
+  color: var(--c-accent);
+}
+
+.step__title {
+  margin-bottom: 1rem;
+  font-size: 1.85rem;
+}
+
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 13. Antes / después ---------- */
+.ba {
+  --pos: 50%;
+
+  position: relative;
+  height: clamp(18rem, 44vw, 36rem);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+  user-select: none;
+}
+
+.ba__layer {
+  position: absolute;
+  inset: 0;
+}
+
+.ba__layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ba__layer--before {
+  background:
+    repeating-linear-gradient(45deg, transparent 0 22px, rgb(255 255 255 / 0.03) 22px 23px),
+    var(--c-bg-raised);
+}
+
+.ba__layer--after {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 22px, rgb(255 255 255 / 0.05) 22px 23px),
+    var(--c-surface);
+  clip-path: inset(0 0 0 var(--pos));
+}
+
+.ba__caption {
+  position: absolute;
+  top: 1.25rem;
+  left: 50%;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+
+.ba__tag {
+  position: absolute;
+  bottom: 1.5rem;
+  padding: 0.45rem 0.8rem;
+  font-weight: 700;
+}
+
+.ba__tag--before {
+  left: 1.5rem;
+  background: var(--c-bg);
+}
+
+.ba__tag--after {
+  right: 1.5rem;
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+
+.ba__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 3px;
+  translate: -50% 0;
+  background: var(--c-accent);
+  pointer-events: none;
+}
+
+.ba__handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+
+/* Control invisible que cubre toda la foto: se puede arrastrar desde cualquier punto */
+.ba__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.ba:has(.ba__range:focus-visible) .ba__handle {
+  outline: 2px solid var(--c-text);
+  outline-offset: 3px;
+}
+
+/* ---------- 14. Lava tu propia moto ---------- */
+.selfwash {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.selfwash__photo {
+  min-height: 34rem;
+}
+
+.selfwash__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.selfwash__title {
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--c-line);
+}
+
+.features li {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.features li:nth-child(even) {
+  padding-left: 1rem;
+  border-left: 1px solid var(--c-line);
+}
+
+.selfwash__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2.5rem;
+}
+
+.selfwash__price {
+  font-size: 2rem;
+}
+
+.selfwash__price span {
+  font-size: 0.5em;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .selfwash {
+    grid-template-columns: 1fr;
+  }
+
+  .selfwash__photo {
+    min-height: 22rem;
+  }
+}
+
+/* ---------- 15. Reserva ---------- */
+.booking {
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+
+.booking__steps li {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  align-items: baseline;
+  gap: 2rem;
+  padding-block: 1.5rem;
+  border-top: 2px solid var(--c-ink);
+}
+
+.booking__steps li:last-child {
+  border-bottom: 2px solid var(--c-ink);
+}
+
+.booking__steps .heading {
+  font-size: clamp(1.6rem, 3.4vw, 2.75rem);
+}
+
+.channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 3rem;
+}
+
+.channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1.75rem;
+  background: var(--c-ink);
+  color: var(--c-text);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: background-color 0.2s var(--ease);
+}
+
+.channel:hover {
+  background: var(--c-surface);
+}
+
+.channel:focus-visible {
+  outline-color: var(--c-ink);
+}
+
+@media (max-width: 520px) {
+  .booking__steps li {
+    grid-template-columns: 2rem 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ---------- 16. Pie de página ---------- */
+.footer {
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+}
+
+.footer__info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.footer__info dd {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.footer__word {
+  margin-block: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(3rem, 17vw, 15rem);
+  white-space: nowrap;
+  color: #121619;
+  line-height: 0.8;
+}
+
+.footer__word span {
+  color: var(--c-accent-deep);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--c-line);
+}
+
+.footer__note {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.footer__credits {
+  padding-bottom: 1.75rem;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .footer__info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .footer__info {
+    grid-template-columns: 1fr;
+  }
+}
